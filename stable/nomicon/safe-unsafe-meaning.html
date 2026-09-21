@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Как относятся Безопасный и Небезопасный Rust - The Rustonomicon</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Темное искусство продвинутого и небезопасного программирования на Rust">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/nomicon.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Вступление</a></li><li class="chapter-item expanded "><a href="meet-safe-and-unsafe.html"><strong aria-hidden="true">1.</strong> Встреча безопасного и небезопасного</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="safe-unsafe-meaning.html" class="active"><strong aria-hidden="true">1.1.</strong> Как относятся Безопасный и Небезопасный Rust</a></li><li class="chapter-item expanded "><a href="what-unsafe-does.html"><strong aria-hidden="true">1.2.</strong> Что небезопасный код может делать</a></li><li class="chapter-item expanded "><a href="working-with-unsafe.html"><strong aria-hidden="true">1.3.</strong> Работа с небезопасным кодом</a></li></ol></li><li class="chapter-item expanded "><a href="data.html"><strong aria-hidden="true">2.</strong> Представление данных в Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="repr-rust.html"><strong aria-hidden="true">2.1.</strong> repr(Rust)</a></li><li class="chapter-item expanded "><a href="exotic-sizes.html"><strong aria-hidden="true">2.2.</strong> Типы экзотического размера</a></li><li class="chapter-item expanded "><a href="other-reprs.html"><strong aria-hidden="true">2.3.</strong> Альтернативные представления</a></li></ol></li><li class="chapter-item expanded "><a href="ownership.html"><strong aria-hidden="true">3.</strong> Владение и время жизни</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.1.</strong> Ссылки</a></li><li class="chapter-item expanded "><a href="aliasing.html"><strong aria-hidden="true">3.2.</strong> Алиасинг</a></li><li class="chapter-item expanded "><a href="lifetime.html"><strong aria-hidden="true">3.3.</strong> Время жизни</a></li><li class="chapter-item expanded "><a href="lifetime-mismatch.html"><strong aria-hidden="true">3.4.</strong> Границы времени жизни</a></li><li class="chapter-item expanded "><a href="lifetime-elision.html"><strong aria-hidden="true">3.5.</strong> Опускание времени жизни</a></li><li class="chapter-item expanded "><a href="unbounded-lifetimes.html"><strong aria-hidden="true">3.6.</strong> Безграничные времена жизни</a></li><li class="chapter-item expanded "><a href="hrtb.html"><strong aria-hidden="true">3.7.</strong> Ограничения типажей высшего порядка</a></li><li class="chapter-item expanded "><a href="subtyping.html"><strong aria-hidden="true">3.8.</strong> Подтипы и вариантность</a></li><li class="chapter-item expanded "><a href="dropck.html"><strong aria-hidden="true">3.9.</strong> Проверка сброса</a></li><li class="chapter-item expanded "><a href="phantom-data.html"><strong aria-hidden="true">3.10.</strong> Призрачные данные</a></li><li class="chapter-item expanded "><a href="borrow-splitting.html"><strong aria-hidden="true">3.11.</strong> Деление заимствований</a></li></ol></li><li class="chapter-item expanded "><a href="conversions.html"><strong aria-hidden="true">4.</strong> Преобразование типов</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="coercions.html"><strong aria-hidden="true">4.1.</strong> Неявные приведения типов</a></li><li class="chapter-item expanded "><a href="dot-operator.html"><strong aria-hidden="true">4.2.</strong> Оператор Точка</a></li><li class="chapter-item expanded "><a href="casts.html"><strong aria-hidden="true">4.3.</strong> Явные приведения типов</a></li><li class="chapter-item expanded "><a href="transmutes.html"><strong aria-hidden="true">4.4.</strong> Трансмутации</a></li></ol></li><li class="chapter-item expanded "><a href="uninitialized.html"><strong aria-hidden="true">5.</strong> Работа с неинициализированной памятью</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="checked-uninit.html"><strong aria-hidden="true">5.1.</strong> Проверяемая неинициализированная память</a></li><li class="chapter-item expanded "><a href="drop-flags.html"><strong aria-hidden="true">5.2.</strong> Флаги удаления</a></li><li class="chapter-item expanded "><a href="unchecked-uninit.html"><strong aria-hidden="true">5.3.</strong> Непроверяемая неинициализированная память</a></li></ol></li><li class="chapter-item expanded "><a href="obrm.html"><strong aria-hidden="true">6.</strong> Управление ресурсами на основе владения</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="constructors.html"><strong aria-hidden="true">6.1.</strong> Конструкторы</a></li><li class="chapter-item expanded "><a href="destructors.html"><strong aria-hidden="true">6.2.</strong> Деструкторы</a></li><li class="chapter-item expanded "><a href="leaking.html"><strong aria-hidden="true">6.3.</strong> Утечка</a></li></ol></li><li class="chapter-item expanded "><a href="unwinding.html"><strong aria-hidden="true">7.</strong> Размотка</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="exception-safety.html"><strong aria-hidden="true">7.1.</strong> Безопасность исключений</a></li><li class="chapter-item expanded "><a href="poisoning.html"><strong aria-hidden="true">7.2.</strong> Отравление</a></li></ol></li><li class="chapter-item expanded "><a href="concurrency.html"><strong aria-hidden="true">8.</strong> Многопоточность и параллелизм</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="races.html"><strong aria-hidden="true">8.1.</strong> Гонки данных и их условия</a></li><li class="chapter-item expanded "><a href="send-and-sync.html"><strong aria-hidden="true">8.2.</strong> Send и Sync</a></li><li class="chapter-item expanded "><a href="atomics.html"><strong aria-hidden="true">8.3.</strong> Атомарные операции</a></li></ol></li><li class="chapter-item expanded "><a href="vec/vec.html"><strong aria-hidden="true">9.</strong> Пример: Реализация Vec</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vec/vec-layout.html"><strong aria-hidden="true">9.1.</strong> Содержимое структуры</a></li><li class="chapter-item expanded "><a href="vec/vec-alloc.html"><strong aria-hidden="true">9.2.</strong> Выделение памяти</a></li><li class="chapter-item expanded "><a href="vec/vec-push-pop.html"><strong aria-hidden="true">9.3.</strong> Push и Pop</a></li><li class="chapter-item expanded "><a href="vec/vec-dealloc.html"><strong aria-hidden="true">9.4.</strong> Освобождение</a></li><li class="chapter-item expanded "><a href="vec/vec-deref.html"><strong aria-hidden="true">9.5.</strong> Разыменование</a></li><li class="chapter-item expanded "><a href="vec/vec-insert-remove.html"><strong aria-hidden="true">9.6.</strong> Insert и Remove</a></li><li class="chapter-item expanded "><a href="vec/vec-into-iter.html"><strong aria-hidden="true">9.7.</strong> IntoIter</a></li><li class="chapter-item expanded "><a href="vec/vec-raw.html"><strong aria-hidden="true">9.8.</strong> RawVec</a></li><li class="chapter-item expanded "><a href="vec/vec-drain.html"><strong aria-hidden="true">9.9.</strong> Drain</a></li><li class="chapter-item expanded "><a href="vec/vec-zsts.html"><strong aria-hidden="true">9.10.</strong> Обработка типов нулевого размера</a></li><li class="chapter-item expanded "><a href="vec/vec-final.html"><strong aria-hidden="true">9.11.</strong> Получившийся код</a></li></ol></li><li class="chapter-item expanded "><a href="arc-mutex/arc-and-mutex.html"><strong aria-hidden="true">10.</strong> Реализация Arc и Mutex</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="arc-mutex/arc.html"><strong aria-hidden="true">10.1.</strong> Arc</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="arc-mutex/arc-layout.html"><strong aria-hidden="true">10.1.1.</strong> Размещение в памяти</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-base.html"><strong aria-hidden="true">10.1.2.</strong> Базовый код</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-clone.html"><strong aria-hidden="true">10.1.3.</strong> Клонирование</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-drop.html"><strong aria-hidden="true">10.1.4.</strong> Удаление</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-final.html"><strong aria-hidden="true">10.1.5.</strong> Получившийся код</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="ffi.html"><strong aria-hidden="true">11.</strong> FFI</a></li><li class="chapter-item expanded "><a href="beneath-std.html"><strong aria-hidden="true">12.</strong> Внутри std</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="panic-handler.html"><strong aria-hidden="true">12.1.</strong> #[panic_handler]</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rustonomicon</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-ru/nomicon" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>% Как относятся Безопасный и Небезопасный Rust</p>
+<p>Итак, каковы отношения между Безопасным и Небезопасным Rust? Как они
+взаимодействуют между собой?</p>
+<p>Rust разделяет Безопасный и Небезопасный Rust с помощью ключевого слова
+<code>unsafe</code>, которое можно трактовать как <em>интерфейс внешних функций (foreign
+function interface)</em> (FFI) для взаимодействия Безопасного и Небезопасного Rust.
+Это магия, благодаря которой можно сказать, что Безопасный Rust - действительно
+безопасен: вся работа со страшными небезопасными частями языка, <em>как и в других
+безопасных языках</em>, отводится исключительно FFI.</p>
+<p>Но из-за того, что один язык, получается, входит в другой, их можно спокойно
+смешивать, обозначая границы между ними ключевым словом <code>unsafe</code>. Не надо писать
+заголовочные файлы, инициализировать среду исполнения или делать какие-либо 
+другие рутинные операции по обработке FFI.</p>
+<p>На данный момент <code>unsafe</code> может появиться в Rust только в определенных местах,
+которые грубо можно разделить на две категории:</p>
+<ul>
+<li>
+<p>Перед объявлением непроверенных контрактов. Я, как автор контракта, требую писать 
+<code>unsafe</code>, чтобы убедиться, что вы, как пользователь, поняли следующее:</p>
+<ul>
+<li>Перед функциями <code>unsafe</code> показывает, что ее вызывать небезопасно. 
+Вы должны посмотреть документацию, чтобы определить, в чем конкретно это выражается,
+и написать <code>unsafe</code>, чтобы подтвердить, что вы поняли опасность вызова такой функции.</li>
+<li>Перед объявлением типажей <code>unsafe</code> показывает, что <em>реализация</em> типажа 
+является небезопасной операцией, потому что у типажа есть контракты, которым 
+другой небезопасный код имеет право слепо доверять. (Больше об этом ниже.)</li>
+</ul>
+</li>
+<li>
+<p>Перед использованием непроверенных контрактов. Я в меру своих знаний заявляю, что 
+придерживаюсь следующей логики использования непроверенных контрактов:</p>
+<ul>
+<li>В реализации типажей <code>unsafe</code> показывает, что соблюдается <code>unsafe</code> контракт типажа.</li>
+<li>В блоке <code>unsafe</code> показывает, что любая работа с небезопасными операциями 
+должна обрабатываться внутри, и, следовательно, родительская функция безопасна.</li>
+</ul>
+</li>
+</ul>
+<p>В языке есть особый случай, флаг <code>#[unsafe_no_drop_flag]</code>, присутствующий по
+историческим причинам и находящийся на пути к выпиливанию. Смотрите для уточнения
+раздел <a href="drop-flags.html">флаги удаления</a>.</p>
+<p>Примеры небезопасных функций:</p>
+<ul>
+<li><code>slice::get_unchecked</code> выполняет непроверенное индексирование, позволяющее
+свободно нарушить безопасность памяти. </li>
+<li>любой сырой указатель на тип фиксированного размера обладает внутренним 
+методом <code>offset</code>, который вызывает Неопределенное Поведение, если находится 
+&quot;вне границ&quot;, определенных LLVM. </li>
+<li><code>mem::transmute</code> интерпретирует значение полученного типа как другого типа, 
+самовольно обходя безопасность типов. (смотрите для уточнения <a href="conversions.html">преобразования типов</a>) </li>
+<li>Все функции FFI являются <code>unsafe</code>, потому что могут выполнять произвольные 
+сценарии. Часто очевидным виновником этого является Си, но вообще-то любой язык
+может сделать что-то, от чего Rust не будет в восторге.</li>
+</ul>
+<p>В Rust 1.0 есть ровно два небезопасных типажа:</p>
+<ul>
+<li><code>Send</code> - это маркерный типаж (у него нет своего API), который обещает, что 
+типы, реализующие его, можно можно безопасно посылать (перемещать) в другой поток.</li>
+<li><code>Sync</code> - это маркерный типаж, который обещает, что потоки могут безопасно 
+делить между собой типы, реализующие его, используя общую ссылку на них.</li>
+</ul>
+<p>Необходимость в небезопасных типажах кроется в основных свойствах безопасного
+кода:</p>
+<p><strong>Каким бы убогим ни был Безопасный код, он не сможет вызвать неопределенное
+поведение.</strong></p>
+<p>Это означает, что Небезопасный Rust, <strong>как передовой отряд неопределенного поведения</strong>, 
+должен <em>очень подозрительно</em> относиться к обобщенному безопасному коду. Для ясности, 
+Небезопасный Rust доверяет конкретному безопасному коду абсолютно. Другое 
+поведение выродилось бы для него в <em>бесконечные спирали параноидального отчаяния</em>. 
+В частности, доверять корректности стандартной библиотеки абсолютно нормально. 
+<code>std</code> - это, по сути, расширение языка, и вам, действительно, следует доверять ему. 
+Если <code>std</code> нарушает свои гарантии, тогда это точно ошибка в языке.</p>
+<p>Тем не менее, лучше минимизировать напрасные надежды на железобетонность
+безопасного кода. Ошибки случаются! Я ещё раз подчеркну: беспокоиться надо
+только за Небезопасный код. Безопасный код может слепо верить всему, что не 
+нарушает безопасность памяти.</p>
+<p>С другой стороны безопасные типажи могут объявлять произвольные контракты, но,
+небезопасный код не может считать, что они будут на самом деле соблюдаться из-за
+того, что их реализация считается безопасной,. <em>Кто угодно</em> может реализовать
+интерфейс так, как он хочет. В этом и состоит фундаментальная разница - доверять
+ли правильности конкретного участка кода или доверять правильности <em>любого кода,
+который будет когда либо написан</em>.</p>
+<p>Например, в Rust есть типажи <code>PartialOrd</code> и <code>Ord</code>, нужные для того, чтобы можно
+было отличить типы, которые можно &quot;только&quot; сравнивать, от тех, значения которых
+находятся в отношении строгого порядка. В большинстве своем, каждое API, которое
+хочет работать с упорядоченными данными, хочет иметь <code>Ord</code>. Например,
+упорядоченный словарь BTreeMap <em>не имеет никакого смысла</em> создавать для частично
+упорядоченных данных. Если вы объявите, что тип реализует <code>Ord</code>, но не
+предоставите значения, которые действительно упорядочены, BTreeMap <em>попадет в
+просак</em>, ему станет очень плохо. Вставленные данные будет уже невозможно найти!</p>
+<p>Но это еще нормально. BTreeMap безопасен, поэтому он гарантирует, что даже если
+вы дадите ему абсолютно бредовую реализацию <code>Ord</code>, он будет все равно делать
+что-то <em>безопасное</em>. Он не начнет читать неинициализированную или невыделенную
+память. На самом деле BTreeMap даже не потеряет ваши данные. После его
+удаления, все деструкторы будут вызваны успешно! Ура!</p>
+<p>Только надо помнить, что BTreeMap реализован с использованием маленькой щепотки
+Небезопасного Rust (как и большинство коллекций). Поэтому не всегда можно
+утверждать, что плохая реализация <code>Ord</code> не приведёт к небезопасному поведению
+BTreeMap. BTreeMap не должен полагаться на <code>Ord</code>, <em>ставя под угрозу
+безопасность</em>. <code>Ord</code> предоставляется безопасным кодом, а безопасный код считает
+всё безопасным.</p>
+<p>Но правда было бы здорово, если бы небезопасный код мог бы в <em>каких-нибудь
+местах</em> доверять контрактам какого-либо типажа? Эта проблема, которой занимаются
+небезопасные типажи: помечая небезопасность реализации <em>самого типажа</em>, другой
+небезопасный код может доверять реализациям контракта такого типажа. Хотя она
+может быть неправильна во всех произвольных случаях.</p>
+<p>Например, имея гипотетический типаж UnsafeOrd, технически такая реализация будет
+правильна:</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::cmp::Ordering;
+</span><span class="boring">struct MyType;
+</span><span class="boring">unsafe trait UnsafeOrd { fn cmp(&amp;self, other: &amp;Self) -&gt; Ordering; }
+</span>unsafe impl UnsafeOrd for MyType {
+    fn cmp(&amp;self, other: &amp;Self) -&gt; Ordering {
+        Ordering::Equal
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Но, наверное, это совсем не та реализация, которую вам бы хотелось иметь.</p>
+<p>Rust традиционно не делает типажи небезопасными по умолчанию, потому что это
+сделало бы небезопасность повсеместной, что абсолютно нежелательно. Send и Sync
+небезопасны, потому что потокобезопасность - это <em>фундаментальное свойство</em>, от
+которого небезопасный код даже не может попытаться защититься таким же образом,
+как он защитился бы от плохой реализации Ord. Единственный способ защититься от
+потоконебезопасности - <em>не использовать потоки вообще</em>. Сделать каждую загрузку
+и сохранение атомарными недостаточно, потому что могут существовать сложные
+варианты, задействующие отдельные области памяти. Например, указатель и размер у
+Vec должны быть синхронизированы.</p>
+<p>Даже такая парадигма параллельности как обмен сообщениями, которая традиционно
+считается Абсолютно Безопасной, неявно опирается на потокобезопасность -
+действительно ли вы используете обмен сообщениями, если передаете указатель? Для
+Send и Sync, таким образом, требуется базовый уровень доверия, который
+Безопасный код не может предоставить, поэтому их реализацию необходимо сделать
+небезопасной. Чтобы избежать небезопасности, проникающей везде, возникнувшей
+вследствие этого, Send и Sync автоматически выводятся для всех типов,
+состоящих из значений типов, реализующих Send и Sync. 99% типов реализуют Send
+и Sync, и 99% из них никогда не сообщают об этом (оставшийся 1% - это по
+большей части примитивы синхронизации).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="meet-safe-and-unsafe.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="what-unsafe-does.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="meet-safe-and-unsafe.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="what-unsafe-does.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

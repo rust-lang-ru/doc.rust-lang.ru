@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Проверка сброса - The Rustonomicon</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Темное искусство продвинутого и небезопасного программирования на Rust">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/nomicon.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Вступление</a></li><li class="chapter-item expanded "><a href="meet-safe-and-unsafe.html"><strong aria-hidden="true">1.</strong> Встреча безопасного и небезопасного</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="safe-unsafe-meaning.html"><strong aria-hidden="true">1.1.</strong> Как относятся Безопасный и Небезопасный Rust</a></li><li class="chapter-item expanded "><a href="what-unsafe-does.html"><strong aria-hidden="true">1.2.</strong> Что небезопасный код может делать</a></li><li class="chapter-item expanded "><a href="working-with-unsafe.html"><strong aria-hidden="true">1.3.</strong> Работа с небезопасным кодом</a></li></ol></li><li class="chapter-item expanded "><a href="data.html"><strong aria-hidden="true">2.</strong> Представление данных в Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="repr-rust.html"><strong aria-hidden="true">2.1.</strong> repr(Rust)</a></li><li class="chapter-item expanded "><a href="exotic-sizes.html"><strong aria-hidden="true">2.2.</strong> Типы экзотического размера</a></li><li class="chapter-item expanded "><a href="other-reprs.html"><strong aria-hidden="true">2.3.</strong> Альтернативные представления</a></li></ol></li><li class="chapter-item expanded "><a href="ownership.html"><strong aria-hidden="true">3.</strong> Владение и время жизни</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.1.</strong> Ссылки</a></li><li class="chapter-item expanded "><a href="aliasing.html"><strong aria-hidden="true">3.2.</strong> Алиасинг</a></li><li class="chapter-item expanded "><a href="lifetime.html"><strong aria-hidden="true">3.3.</strong> Время жизни</a></li><li class="chapter-item expanded "><a href="lifetime-mismatch.html"><strong aria-hidden="true">3.4.</strong> Границы времени жизни</a></li><li class="chapter-item expanded "><a href="lifetime-elision.html"><strong aria-hidden="true">3.5.</strong> Опускание времени жизни</a></li><li class="chapter-item expanded "><a href="unbounded-lifetimes.html"><strong aria-hidden="true">3.6.</strong> Безграничные времена жизни</a></li><li class="chapter-item expanded "><a href="hrtb.html"><strong aria-hidden="true">3.7.</strong> Ограничения типажей высшего порядка</a></li><li class="chapter-item expanded "><a href="subtyping.html"><strong aria-hidden="true">3.8.</strong> Подтипы и вариантность</a></li><li class="chapter-item expanded "><a href="dropck.html" class="active"><strong aria-hidden="true">3.9.</strong> Проверка сброса</a></li><li class="chapter-item expanded "><a href="phantom-data.html"><strong aria-hidden="true">3.10.</strong> Призрачные данные</a></li><li class="chapter-item expanded "><a href="borrow-splitting.html"><strong aria-hidden="true">3.11.</strong> Деление заимствований</a></li></ol></li><li class="chapter-item expanded "><a href="conversions.html"><strong aria-hidden="true">4.</strong> Преобразование типов</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="coercions.html"><strong aria-hidden="true">4.1.</strong> Неявные приведения типов</a></li><li class="chapter-item expanded "><a href="dot-operator.html"><strong aria-hidden="true">4.2.</strong> Оператор Точка</a></li><li class="chapter-item expanded "><a href="casts.html"><strong aria-hidden="true">4.3.</strong> Явные приведения типов</a></li><li class="chapter-item expanded "><a href="transmutes.html"><strong aria-hidden="true">4.4.</strong> Трансмутации</a></li></ol></li><li class="chapter-item expanded "><a href="uninitialized.html"><strong aria-hidden="true">5.</strong> Работа с неинициализированной памятью</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="checked-uninit.html"><strong aria-hidden="true">5.1.</strong> Проверяемая неинициализированная память</a></li><li class="chapter-item expanded "><a href="drop-flags.html"><strong aria-hidden="true">5.2.</strong> Флаги удаления</a></li><li class="chapter-item expanded "><a href="unchecked-uninit.html"><strong aria-hidden="true">5.3.</strong> Непроверяемая неинициализированная память</a></li></ol></li><li class="chapter-item expanded "><a href="obrm.html"><strong aria-hidden="true">6.</strong> Управление ресурсами на основе владения</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="constructors.html"><strong aria-hidden="true">6.1.</strong> Конструкторы</a></li><li class="chapter-item expanded "><a href="destructors.html"><strong aria-hidden="true">6.2.</strong> Деструкторы</a></li><li class="chapter-item expanded "><a href="leaking.html"><strong aria-hidden="true">6.3.</strong> Утечка</a></li></ol></li><li class="chapter-item expanded "><a href="unwinding.html"><strong aria-hidden="true">7.</strong> Размотка</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="exception-safety.html"><strong aria-hidden="true">7.1.</strong> Безопасность исключений</a></li><li class="chapter-item expanded "><a href="poisoning.html"><strong aria-hidden="true">7.2.</strong> Отравление</a></li></ol></li><li class="chapter-item expanded "><a href="concurrency.html"><strong aria-hidden="true">8.</strong> Многопоточность и параллелизм</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="races.html"><strong aria-hidden="true">8.1.</strong> Гонки данных и их условия</a></li><li class="chapter-item expanded "><a href="send-and-sync.html"><strong aria-hidden="true">8.2.</strong> Send и Sync</a></li><li class="chapter-item expanded "><a href="atomics.html"><strong aria-hidden="true">8.3.</strong> Атомарные операции</a></li></ol></li><li class="chapter-item expanded "><a href="vec/vec.html"><strong aria-hidden="true">9.</strong> Пример: Реализация Vec</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vec/vec-layout.html"><strong aria-hidden="true">9.1.</strong> Содержимое структуры</a></li><li class="chapter-item expanded "><a href="vec/vec-alloc.html"><strong aria-hidden="true">9.2.</strong> Выделение памяти</a></li><li class="chapter-item expanded "><a href="vec/vec-push-pop.html"><strong aria-hidden="true">9.3.</strong> Push и Pop</a></li><li class="chapter-item expanded "><a href="vec/vec-dealloc.html"><strong aria-hidden="true">9.4.</strong> Освобождение</a></li><li class="chapter-item expanded "><a href="vec/vec-deref.html"><strong aria-hidden="true">9.5.</strong> Разыменование</a></li><li class="chapter-item expanded "><a href="vec/vec-insert-remove.html"><strong aria-hidden="true">9.6.</strong> Insert и Remove</a></li><li class="chapter-item expanded "><a href="vec/vec-into-iter.html"><strong aria-hidden="true">9.7.</strong> IntoIter</a></li><li class="chapter-item expanded "><a href="vec/vec-raw.html"><strong aria-hidden="true">9.8.</strong> RawVec</a></li><li class="chapter-item expanded "><a href="vec/vec-drain.html"><strong aria-hidden="true">9.9.</strong> Drain</a></li><li class="chapter-item expanded "><a href="vec/vec-zsts.html"><strong aria-hidden="true">9.10.</strong> Обработка типов нулевого размера</a></li><li class="chapter-item expanded "><a href="vec/vec-final.html"><strong aria-hidden="true">9.11.</strong> Получившийся код</a></li></ol></li><li class="chapter-item expanded "><a href="arc-mutex/arc-and-mutex.html"><strong aria-hidden="true">10.</strong> Реализация Arc и Mutex</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="arc-mutex/arc.html"><strong aria-hidden="true">10.1.</strong> Arc</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="arc-mutex/arc-layout.html"><strong aria-hidden="true">10.1.1.</strong> Размещение в памяти</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-base.html"><strong aria-hidden="true">10.1.2.</strong> Базовый код</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-clone.html"><strong aria-hidden="true">10.1.3.</strong> Клонирование</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-drop.html"><strong aria-hidden="true">10.1.4.</strong> Удаление</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-final.html"><strong aria-hidden="true">10.1.5.</strong> Получившийся код</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="ffi.html"><strong aria-hidden="true">11.</strong> FFI</a></li><li class="chapter-item expanded "><a href="beneath-std.html"><strong aria-hidden="true">12.</strong> Внутри std</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="panic-handler.html"><strong aria-hidden="true">12.1.</strong> #[panic_handler]</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rustonomicon</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-ru/nomicon" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>% Проверка удаления</p>
+<p>Мы уже посмотрели, как времена жизни предоставляют нам простые правила,
+гарантирующие, что мы никогда не прочитаем висячий указатель. В то же время до
+этого мы имели дело только с отношениями вида, <em><code>'a</code> переживает <code>'b</code></em>, которые
+сформулированы включительно. То есть, когда мы говорим о <code>'a: 'b</code>, то в порядке
+вещей для <code>'a</code> жить <em>ровно</em> столько же сколько <code>'b</code>. На первый взгляд это
+кажется бессмысленным. Ничего же не может удалится одновременно с другим,
+правда? Вот почему утверждение <code>let</code> без синтаксического сахара выглядит
+следующим образом:</p>
+<pre><code class="language-rust ignore">let x;
+let y;
+</code></pre>
+<pre><code class="language-rust ignore">{
+    let x;
+    {
+        let y;
+    }
+}
+</code></pre>
+<p>Каждое <code>let</code> создает свою область видимости, ясно утверждая, что одно удаляется
+после другого. А что, если мы сделаем так?</p>
+<pre><code class="language-rust ignore">let (x, y) = (vec![], vec![]);
+</code></pre>
+<p>Живет ли одно значение дольше другого? Ответ, <em>нет</em>, ни одно значение не живет
+дольше другого. Конечно, или x, или y удалится одно после другого, но сам
+порядок не определен. Кортежи не одиноки в этом вопросе; начиная с Rust 1.0,
+составные структуры тоже не гарантируют порядок своего удаления.</p>
+<p>Мы <em>могли бы</em> указать порядок для внутренних полей составных объектов, таких как
+кортежи или структуры. Но как насчет Vec или чего-то подобного? Vec приходится
+вручную удалять элементы посредством вызова кода из библиотеки. В общем случае
+все, что реализует Drop, имеет возможность повозиться со своими внутренностями,
+когда уже звучит похоронный звон. Поэтому компилятор не может достаточно точно
+определить порядок удаления полей типа, реализующего Drop.</p>
+<p>Ну, а нам то какая разница? На самом деле это важно, потому что если система
+типов будет неаккуратна, она может случайно создать висячий указатель.
+Предположим, что у нас есть следующая программа:</p>
+<pre><pre class="playground"><code class="language-rust edition2018">struct Inspector&lt;'a&gt;(&amp;'a u8);
+
+fn main() {
+    let (inspector, days);
+    days = Box::new(1);
+    inspector = Inspector(&amp;days);
+}
+</code></pre></pre>
+<p>Программа абсолютно правильна и успешно компилируется. Тот факт, что <code>days</code> не
+живет <em>строго дольше</em> <code>inspector</code> не важен. Пока жив <code>inspector</code>, живы и days.</p>
+<p>Но если мы добавим деструктор, программа больше не будет компилироваться!</p>
+<pre><code class="language-rust ignore">struct Inspector&lt;'a&gt;(&amp;'a u8);
+
+impl&lt;'a&gt; Drop for Inspector&lt;'a&gt; {
+    fn drop(&amp;mut self) {
+        println!(&quot;Я был всего в {} днях от пенсии!&quot;, self.0);
+    }
+}
+
+fn main() {
+    let (inspector, days);
+    days = Box::new(1);
+    inspector = Inspector(&amp;days);
+    // Предположим, что `days` удалилась первой.
+    // Когда Inspector будет удаляться, он попытается прочитать освобожденную 
+    // память!
+}
+</code></pre>
+<pre><code class="language-text">&lt;anon&gt;:12:28: 12:32 error: `days` does not live long enough
+&lt;anon&gt;:12     inspector = Inspector(&amp;days);
+                                     ^~~~
+&lt;anon&gt;:9:11: 15:2 note: reference must be valid for the block at 9:10...
+&lt;anon&gt;:9 fn main() {
+&lt;anon&gt;:10     let (inspector, days);
+&lt;anon&gt;:11     days = Box::new(1);
+&lt;anon&gt;:12     inspector = Inspector(&amp;days);
+&lt;anon&gt;:13     // Предположим, что `days` удалилась первой.
+&lt;anon&gt;:14     // Когда Inspector будет удаляться, он попытается прочитать освобожденную память!
+          ...
+&lt;anon&gt;:10:27: 15:2 note: ...but borrowed value is only valid for the block suffix following statement 0 at 10:26
+&lt;anon&gt;:10     let (inspector, days);
+&lt;anon&gt;:11     days = Box::new(1);
+&lt;anon&gt;:12     inspector = Inspector(&amp;days);
+&lt;anon&gt;:13     // Предположим, что `days` удалилась первой.
+&lt;anon&gt;:14     // Когда Inspector будет удаляться, он попытается прочитать освобожденную память!
+&lt;anon&gt;:15 }
+</code></pre>
+<p>Добавление Drop позволяет Inspector выполнить на смертном одре произвольный код.
+Это означает, что он, теоретически, может заметить, что типы, которые должны
+были бы жить столько же, сколько и он, на самом деле уже уничтожены.</p>
+<p>Самое интересное, что только обобщённые типы должны об этом волноваться. Для не
+обобщённых типов время жизни может быть только <code>'static</code>, а значит они могут
+жить <em>вечно</em>. Именно поэтому проблема называется проблемой  <em>правильного
+удаления обобщённых типов</em>. Правильное удаление обобщённых типов
+гарантируется <em>анализатором удалений</em>. Во время написания этой главы
+некоторые детали, связанные с тем, как анализатор удалений проверяет типы,
+еще находились в подвешенном состоянии. Однако, Главным Правилом, на котором мы
+фокусируемся в этом разделе, будет следующее:</p>
+<p><strong>Чтобы обобщённый тип правильно реализовывал Drop, его обобщённые аргументы 
+должно жить строго дольше него самого</strong></p>
+<p>Для того, чтобы подчиниться этому правилу, (обычно) необходимо удовлетворить
+требования анализатора заимствований; достаточно подчинятся этому правилу, хотя
+это и не обязательно. Таким образом, если ваш тип подчиняется этому правилу, то он
+точно правильно удалится.</p>
+<p>Причиной, по которой не всегда обязательно подчиняться правилу выше, является
+то, что некоторые реализации Drop не обладают доступом к заимствованным данным,
+даже при том, что их тип обладает возможностью такого доступа.</p>
+<p>Например, у этого варианта <code>Inspector</code> никогда не будет доступа к заимствованным
+данным:</p>
+<pre><code class="language-rust ignore">struct Inspector&lt;'a&gt;(&amp;'a u8, &amp;'static str);
+
+impl&lt;'a&gt; Drop for Inspector&lt;'a&gt; {
+    fn drop(&amp;mut self) {
+        println!(&quot;Inspector(_, {}) знает, когда *не* проверять.&quot;, self.1);
+    }
+}
+
+fn main() {
+    let (inspector, days);
+    days = Box::new(1);
+    inspector = Inspector(&amp;days, &quot;gadget&quot;);
+    // Предположим, что `days` удалилась первой.
+    // Даже когда Inspector будет удаляться, у его деструктора не будет доступа
+    // к заимствованным `days`.
+}
+</code></pre>
+<p>У следующего варианта <code>Inspector</code> тоже никогда не будет доступа к заимствованным
+данным:</p>
+<pre><code class="language-rust ignore">use std::fmt;
+
+struct Inspector&lt;T: fmt::Display&gt;(T, &amp;'static str);
+
+impl&lt;T: fmt::Display&gt; Drop for Inspector&lt;T&gt; {
+    fn drop(&amp;mut self) {
+        println!(&quot;Inspector(_, {}) знает, когда *не* проверять.&quot;, self.1);
+    }
+}
+
+fn main() {
+    let (inspector, days): (Inspector&lt;&amp;u8&gt;, Box&lt;u8&gt;);
+    days = Box::new(1);
+    inspector = Inspector(&amp;days, &quot;gadget&quot;);
+    // Предположим, что `days` удалилась первой.
+    // Даже когда Inspector будет удаляться, у его деструктора не будет доступа
+    // к заимствованным `days`.
+}
+</code></pre>
+<p>Однако <em>оба</em> этих варианта будут отвергнуты анализатором заимствований во время
+проверки <code>fn main</code>, говоря, что <code>days</code> не живет достаточно долго.</p>
+<p>Анализатор заимствований не знает о внутренностях каждой реализации Drop для
+Inspector при проверке <code>main</code>. Проверяя <code>main</code>, он понимает, что 
+тело деструктора Inspector может получить доступ к заимствованным данным.</p>
+<p>По этой причине анализатор удалений требует, чтобы все заимствованные данные в
+значении типа жили строго дольше значения этого типа.</p>
+<h1 id="Аварийный-люк"><a class="header" href="#Аварийный-люк">Аварийный люк</a></h1>
+<p>Четкие правила, управляющие проверкой удалений, возможно, в будущем будут менее
+строгими.</p>
+<p>Текущая проверка нарочито консервативна и тривиальна; она требует, чтобы все
+заимствованные данные в значении типа жили строго дольше значения этого типа,
+что несомненно правильно.</p>
+<p>Будущие версии языка, возможно, сделают проверки более точными, чтобы уменьшить
+количество случаев, когда правильный код отвергается как небезопасный. Это
+помогло бы решить случаи, как с двумя Inspector выше, которые знают, что не
+надо проверять их во время удаления.</p>
+<p>В настоящее время существует нестабильный атрибут, который можно использовать,
+чтобы указать (небезопасно), что деструктор обобщенного типа <em>гарантированно</em> не
+будет иметь доступ к просроченным данным, даже при том, что у такого типа есть
+возможность сделать это.</p>
+<p>Аттрибут называется <code>unsafe_destructor_blind_to_params</code>. Чтобы применить его к
+Inspector из примера выше, напишем:</p>
+<pre><code class="language-rust ignore">struct Inspector&lt;'a&gt;(&amp;'a u8, &amp;'static str);
+
+impl&lt;'a&gt; Drop for Inspector&lt;'a&gt; {
+    #[unsafe_destructor_blind_to_params]
+    fn drop(&amp;mut self) {
+        println!(&quot;Inspector(_, {})  знает, когда *не* стоит проверять.&quot;, self.1);
+    }
+}
+</code></pre>
+<p>Внутри аттрибута есть слово <code>unsafe</code>, потому что компилятор не проверяет, что
+осуществляется доступ к потенциально просроченным данным (здесь, например, к
+<code>self.0</code>).</p>
+<p>Иногда очевидно, что такой доступ не происходит, как в примере выше. Однако,
+когда мы имеем дело с параметром обобщенного типа, такой доступ может произойти
+не напрямую. Примерами такого косвенного доступа являются:</p>
+<ul>
+<li>выполнение обратного вызова,</li>
+<li>вызов метода типажа.</li>
+</ul>
+<p>(Будущие изменения в языке, такие как специализация impl, могут добавить другие 
+возможности такого косвенного доступа.)</p>
+<p>Вот пример с выполнением обратного вызова:</p>
+<pre><code class="language-rust ignore">struct Inspector&lt;T&gt;(T, &amp;'static str, Box&lt;for &lt;'r&gt; fn(&amp;'r T) -&gt; String&gt;);
+
+impl&lt;T&gt; Drop for Inspector&lt;T&gt; {
+    fn drop(&amp;mut self) {
+        // Вызов `self.2` может получить доступ к заимствованию, например, если `T` это `&amp;'a _`.
+        println!(&quot;Inspector({}, {}) нечаянно проверяет просроченные данные.&quot;,
+                 (self.2)(&amp;self.0), self.1);
+    }
+}
+</code></pre>
+<p>Вот пример с вызовом метода типажа:</p>
+<pre><code class="language-rust ignore">use std::fmt;
+
+struct Inspector&lt;T: fmt::Display&gt;(T, &amp;'static str);
+
+impl&lt;T: fmt::Display&gt; Drop for Inspector&lt;T&gt; {
+    fn drop(&amp;mut self) {
+        // Ниже есть невидимый вызов `&lt;T as Display&gt;::fmt`, который 
+        // может получить доступ к заимствованию, например, если `T` это `&amp;'a _`
+        println!(&quot;Inspector({}, {}) нечаянно проверяет просроченные данные.&quot;,
+                 self.0, self.1);
+    }
+}
+</code></pre>
+<p>И конечно, все эти получения доступа могут быть дополнительно скрыты внутри
+других методов, вызываемых деструктором, а не написанных непосредственно внутри
+него.</p>
+<p>Во всех случаях выше, где доступ к <code>&amp;'a u8</code> получается в деструкторе благодаря
+добавлению аттрибута <code>#[unsafe_destructor_blind_to_params]</code>, становится возможным
+неправильно использовать тип, это не поймает анализатор заимствований, и
+возникнет хаос. Лучше избежать добавление этого аттрибута.</p>
+<h1 id="Это-все-о-проверке-удалений"><a class="header" href="#Это-все-о-проверке-удалений">Это все о проверке удалений?</a></h1>
+<p>Мы выяснили, что при написании небезопасного кода, нам обычно не надо
+волноваться о том, как правильно пройти проверки удалений. Но есть один особый
+случай, в котором надо волноваться об этом. Рассмотрим его в следующем разделе.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="subtyping.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="phantom-data.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="subtyping.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="phantom-data.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

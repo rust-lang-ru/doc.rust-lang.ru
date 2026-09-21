@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Подтипы и вариантность - The Rustonomicon</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Темное искусство продвинутого и небезопасного программирования на Rust">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/nomicon.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Вступление</a></li><li class="chapter-item expanded "><a href="meet-safe-and-unsafe.html"><strong aria-hidden="true">1.</strong> Встреча безопасного и небезопасного</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="safe-unsafe-meaning.html"><strong aria-hidden="true">1.1.</strong> Как относятся Безопасный и Небезопасный Rust</a></li><li class="chapter-item expanded "><a href="what-unsafe-does.html"><strong aria-hidden="true">1.2.</strong> Что небезопасный код может делать</a></li><li class="chapter-item expanded "><a href="working-with-unsafe.html"><strong aria-hidden="true">1.3.</strong> Работа с небезопасным кодом</a></li></ol></li><li class="chapter-item expanded "><a href="data.html"><strong aria-hidden="true">2.</strong> Представление данных в Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="repr-rust.html"><strong aria-hidden="true">2.1.</strong> repr(Rust)</a></li><li class="chapter-item expanded "><a href="exotic-sizes.html"><strong aria-hidden="true">2.2.</strong> Типы экзотического размера</a></li><li class="chapter-item expanded "><a href="other-reprs.html"><strong aria-hidden="true">2.3.</strong> Альтернативные представления</a></li></ol></li><li class="chapter-item expanded "><a href="ownership.html"><strong aria-hidden="true">3.</strong> Владение и время жизни</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.1.</strong> Ссылки</a></li><li class="chapter-item expanded "><a href="aliasing.html"><strong aria-hidden="true">3.2.</strong> Алиасинг</a></li><li class="chapter-item expanded "><a href="lifetime.html"><strong aria-hidden="true">3.3.</strong> Время жизни</a></li><li class="chapter-item expanded "><a href="lifetime-mismatch.html"><strong aria-hidden="true">3.4.</strong> Границы времени жизни</a></li><li class="chapter-item expanded "><a href="lifetime-elision.html"><strong aria-hidden="true">3.5.</strong> Опускание времени жизни</a></li><li class="chapter-item expanded "><a href="unbounded-lifetimes.html"><strong aria-hidden="true">3.6.</strong> Безграничные времена жизни</a></li><li class="chapter-item expanded "><a href="hrtb.html"><strong aria-hidden="true">3.7.</strong> Ограничения типажей высшего порядка</a></li><li class="chapter-item expanded "><a href="subtyping.html" class="active"><strong aria-hidden="true">3.8.</strong> Подтипы и вариантность</a></li><li class="chapter-item expanded "><a href="dropck.html"><strong aria-hidden="true">3.9.</strong> Проверка сброса</a></li><li class="chapter-item expanded "><a href="phantom-data.html"><strong aria-hidden="true">3.10.</strong> Призрачные данные</a></li><li class="chapter-item expanded "><a href="borrow-splitting.html"><strong aria-hidden="true">3.11.</strong> Деление заимствований</a></li></ol></li><li class="chapter-item expanded "><a href="conversions.html"><strong aria-hidden="true">4.</strong> Преобразование типов</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="coercions.html"><strong aria-hidden="true">4.1.</strong> Неявные приведения типов</a></li><li class="chapter-item expanded "><a href="dot-operator.html"><strong aria-hidden="true">4.2.</strong> Оператор Точка</a></li><li class="chapter-item expanded "><a href="casts.html"><strong aria-hidden="true">4.3.</strong> Явные приведения типов</a></li><li class="chapter-item expanded "><a href="transmutes.html"><strong aria-hidden="true">4.4.</strong> Трансмутации</a></li></ol></li><li class="chapter-item expanded "><a href="uninitialized.html"><strong aria-hidden="true">5.</strong> Работа с неинициализированной памятью</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="checked-uninit.html"><strong aria-hidden="true">5.1.</strong> Проверяемая неинициализированная память</a></li><li class="chapter-item expanded "><a href="drop-flags.html"><strong aria-hidden="true">5.2.</strong> Флаги удаления</a></li><li class="chapter-item expanded "><a href="unchecked-uninit.html"><strong aria-hidden="true">5.3.</strong> Непроверяемая неинициализированная память</a></li></ol></li><li class="chapter-item expanded "><a href="obrm.html"><strong aria-hidden="true">6.</strong> Управление ресурсами на основе владения</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="constructors.html"><strong aria-hidden="true">6.1.</strong> Конструкторы</a></li><li class="chapter-item expanded "><a href="destructors.html"><strong aria-hidden="true">6.2.</strong> Деструкторы</a></li><li class="chapter-item expanded "><a href="leaking.html"><strong aria-hidden="true">6.3.</strong> Утечка</a></li></ol></li><li class="chapter-item expanded "><a href="unwinding.html"><strong aria-hidden="true">7.</strong> Размотка</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="exception-safety.html"><strong aria-hidden="true">7.1.</strong> Безопасность исключений</a></li><li class="chapter-item expanded "><a href="poisoning.html"><strong aria-hidden="true">7.2.</strong> Отравление</a></li></ol></li><li class="chapter-item expanded "><a href="concurrency.html"><strong aria-hidden="true">8.</strong> Многопоточность и параллелизм</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="races.html"><strong aria-hidden="true">8.1.</strong> Гонки данных и их условия</a></li><li class="chapter-item expanded "><a href="send-and-sync.html"><strong aria-hidden="true">8.2.</strong> Send и Sync</a></li><li class="chapter-item expanded "><a href="atomics.html"><strong aria-hidden="true">8.3.</strong> Атомарные операции</a></li></ol></li><li class="chapter-item expanded "><a href="vec/vec.html"><strong aria-hidden="true">9.</strong> Пример: Реализация Vec</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vec/vec-layout.html"><strong aria-hidden="true">9.1.</strong> Содержимое структуры</a></li><li class="chapter-item expanded "><a href="vec/vec-alloc.html"><strong aria-hidden="true">9.2.</strong> Выделение памяти</a></li><li class="chapter-item expanded "><a href="vec/vec-push-pop.html"><strong aria-hidden="true">9.3.</strong> Push и Pop</a></li><li class="chapter-item expanded "><a href="vec/vec-dealloc.html"><strong aria-hidden="true">9.4.</strong> Освобождение</a></li><li class="chapter-item expanded "><a href="vec/vec-deref.html"><strong aria-hidden="true">9.5.</strong> Разыменование</a></li><li class="chapter-item expanded "><a href="vec/vec-insert-remove.html"><strong aria-hidden="true">9.6.</strong> Insert и Remove</a></li><li class="chapter-item expanded "><a href="vec/vec-into-iter.html"><strong aria-hidden="true">9.7.</strong> IntoIter</a></li><li class="chapter-item expanded "><a href="vec/vec-raw.html"><strong aria-hidden="true">9.8.</strong> RawVec</a></li><li class="chapter-item expanded "><a href="vec/vec-drain.html"><strong aria-hidden="true">9.9.</strong> Drain</a></li><li class="chapter-item expanded "><a href="vec/vec-zsts.html"><strong aria-hidden="true">9.10.</strong> Обработка типов нулевого размера</a></li><li class="chapter-item expanded "><a href="vec/vec-final.html"><strong aria-hidden="true">9.11.</strong> Получившийся код</a></li></ol></li><li class="chapter-item expanded "><a href="arc-mutex/arc-and-mutex.html"><strong aria-hidden="true">10.</strong> Реализация Arc и Mutex</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="arc-mutex/arc.html"><strong aria-hidden="true">10.1.</strong> Arc</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="arc-mutex/arc-layout.html"><strong aria-hidden="true">10.1.1.</strong> Размещение в памяти</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-base.html"><strong aria-hidden="true">10.1.2.</strong> Базовый код</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-clone.html"><strong aria-hidden="true">10.1.3.</strong> Клонирование</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-drop.html"><strong aria-hidden="true">10.1.4.</strong> Удаление</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-final.html"><strong aria-hidden="true">10.1.5.</strong> Получившийся код</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="ffi.html"><strong aria-hidden="true">11.</strong> FFI</a></li><li class="chapter-item expanded "><a href="beneath-std.html"><strong aria-hidden="true">12.</strong> Внутри std</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="panic-handler.html"><strong aria-hidden="true">12.1.</strong> #[panic_handler]</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rustonomicon</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-ru/nomicon" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>% Подтипы и вариантность</p>
+<p>Хотя в Rust не входят никакие средства структурного наследования, он <em>включает</em>
+в себя выделение подтипов. В Rust оно полностью вытекает из
+времен жизни. Благодаря временам жизни и областям видимости мы можем частично
+упорядочить выделение подтипов в виде отношений <em>содержания</em> (<code>'a</code> переживает 
+<code>'b</code>). Мы даже можем выразить это в виде обобщенной границы.</p>
+<p>Выделение подтипов по временам жизни в терминах таких отношений будет
+следующим: если <code>'a: 'b</code> (&quot;a содержит b&quot; или &quot;a живет дольше, чем b&quot;), то <code>'a</code>
+является подтипом <code>'b</code>. Здесь существует огромная вероятность ошибиться, потому
+что интуитивно кажется, что должно быть наоборот: большая область видимости
+является <em>подтипом</em> меньшей.</p>
+<p>Хотя на самом деле в этом есть смысл. Интуитивная причина этого - если вы
+ожидаете <code>&amp;'a u8</code>, то вполне нормально передать вам <code>&amp;'static u8</code>, так же как
+если бы вы ожидали Животного в Java, то было бы нормально передать вам Кошку.
+Кошка - это Животное <em>и кое-что еще</em>, также как <code>'static</code> это просто <code>'a</code> <em>и кое-
+что еще</em>.</p>
+<p>(Помните, что отношения подтипов и типизация времен жизни - это довольно
+произвольная конструкция, с которой некоторые не соглашаются. Однако она
+прилично упрощает нам жизнь в части анализа времен жизни.)</p>
+<p>Высокоуровневые времена жизни - это тоже подтипы каждого конкретного времени
+жизни. Так происходит, потому что произвольное время жизни, строго говоря,
+больше, чем какое-либо конкретное время жизни.</p>
+<h1 id="Вариантность"><a class="header" href="#Вариантность">Вариантность</a></h1>
+<p>Вот где вещи становятся немного сложнее.</p>
+<p>Вариантность - это то, как <em>конструкторы типа</em> относятся к своим аргументам.
+Конструктор типа в Rust - это обобщённый тип без ограничений на аргументы.
+Например <code>Vec</code> - это конструктор типа, который принимает на входе <code>T</code> и
+возвращает <code>Vec&lt;T&gt;</code>. <code>&amp;</code> и <code>&amp;mut</code> - это конструкторы типа, которые принимают 2
+аргумента на входе: время жизни и тип, на который указывать.</p>
+<p><em>Вариантность</em> конструктора типа - это то, как выделение подтипов из аргументов
+на входе влияет на выделение подтипов на выходе. В Rust присутствуют два типа
+вариантности:</p>
+<ul>
+<li>Если из того, что <code>T</code> является подтипом <code>U</code>, следует, что <code>F&lt;T&gt;</code> является 
+подтипом <code>F&lt;U&gt;</code>, то F <em>вариантна</em> над <code>T</code>. (выделение подтипов &quot;проходит насквозь&quot;)</li>
+<li>F <em>инвариантна</em> над <code>T</code> в противном случае (нельзя выделить отношений подтипов)</li>
+</ul>
+<p>(Для тех, кто сталкивался с вариантностью в других языках - то, что мы относим
+к &quot;просто&quot; вариантности, на самом деле является <em>ковариантностью</em>. У Rust есть
+<em>контрвариантность</em> для функций. Будущее контрвариантности еще не определено, и
+она может быть удалена. На данный момент <code>fn(T)</code> контрвариантна над <code>T</code>, и
+используется при поиске реализации, подходящей под определение типажа. 
+У типажей нельзя вывести вариантность, поэтому <code>Fn(T)</code> инвариантна к <code>T</code>).</p>
+<p>Некоторые важные вариантности:</p>
+<ul>
+<li><code>&amp;'a T</code> вариантна над <code>'a</code> и <code>T</code> (по аналогии, <code>*const T</code> ведёт себя также)</li>
+<li><code>&amp;'a mut T</code> вариантна над <code>'a</code>, но инвариантна над <code>T</code></li>
+<li><code>Fn(T) -&gt; U</code> инвариантна над <code>T</code>, но вариантна над <code>U</code></li>
+<li><code>Box</code>, <code>Vec</code> и другие коллекции вариантны над типами их содержимого</li>
+<li><code>UnsafeCell&lt;T&gt;</code>, <code>Cell&lt;T&gt;</code>, <code>RefCell&lt;T&gt;</code>, <code>Mutex&lt;T&gt;</code> и другие типы с 
+внутренней изменяемостью инвариантны над T (по аналогии, <code>*mut T</code> ведёт себя также)</li>
+</ul>
+<p>Чтобы понять, почему эти вариантности правильны и важны, рассмотрим несколько
+примеров.</p>
+<p>Мы уже рассматривали, почему <code>&amp;'a T</code> должна быть вариантна над <code>'a</code>, когда
+представляли выделение подтипов: желательно иметь возможность передавать что-то
+с большим временем жизни туда, где ожидается что-то с более коротким временем
+жизни.</p>
+<p>По похожей причине <code>&amp;'a T</code> должна быть вариантна над T. Разумно иметь
+возможность передавать <code>&amp;&amp;'static str</code> где ожидается <code>&amp;&amp;'a str</code>. Дополнительный
+уровень косвенности не влияет на передачу чего-то с большим временем жизни туда,
+где ожидается что-то с более коротким временем жизни.</p>
+<p>Однако, эта логика не применима к <code>&amp;mut</code>. Для того, чтобы понять почему <code>&amp;mut</code>
+должна быть инвариантна над T, возьмем следующий код:</p>
+<pre><code class="language-rust ignore">fn overwrite&lt;T: Copy&gt;(input: &amp;mut T, new: &amp;mut T) {
+    *input = *new;
+}
+
+fn main() {
+    let mut forever_str: &amp;'static str = &quot;hello&quot;;
+    {
+        let string = String::from(&quot;world&quot;);
+        overwrite(&amp;mut forever_str, &amp;mut &amp;*string);
+    }
+    // Упс, вывод освобожденной памяти
+    println!(&quot;{}&quot;, forever_str);
+}
+</code></pre>
+<p>Сигнатура <code>overwrite</code> абсолютна правильна: она берет изменяемую ссылку на два
+значения одного типа и переписывает одно в другое. Если <code>&amp;mut T</code> была бы
+вариантна над T, то <code>&amp;mut &amp;'static str</code> была бы подтипом <code>&amp;mut &amp;'a str</code> из-за
+того, что <code>&amp;'static str</code> является подтипом <code>&amp;'a str</code>. Таким образом, время жизни
+<code>forever_str</code> успешно &quot;усохло&quot; бы до более короткого времени жизни <code>string</code> и
+<code>overwrite</code> бы успешно вызвалось. <code>string</code> впоследствии бы уничтожилось и
+<code>forever_str</code> указывало бы на освобожденную память, когда мы вызываем печать!
+Данный пример показывает, почему <code>&amp;mut</code> должна быть инвариантна.</p>
+<p>Это основная тема в вариантности против инвариантности: если вариантность
+позволяет хранить коротко живущее значение в долго живущей ячейке памяти, то
+надо использовать инвариантность.</p>
+<p>В то же время <code>&amp;'a mut T</code> вариантна над <code>'a</code>. Основное отличие между <code>'a</code> и T -
+<code>'a</code> является свойством самой ссылки, в то время как T - это что-то, что ссылка
+захватила. Если вы поменяете тип T, то источник будет все еще помнить
+оригинальный тип. Но если вы поменяете время жизни типа, никто кроме ссылки не
+помнит эту информацию, поэтому все в порядке. Говоря по другому: <code>&amp;'a mut T</code>
+владеет <code>'a</code>, но только <em>заимствует</em> T.</p>
+<p>Интересными случаями являются <code>Box</code> и <code>Vec</code>, потому что они вариантны, но вы
+можете хранить значения в них! Вот именно тут Rust становится особенно умным:
+они вариантны, потому что вы можете хранить значения в них только <em>посредством
+изменяемой ссылки</em>! Изменяемая ссылка делает весь тип инвариантным и поэтому не
+позволяет перевезти коротко-живущие значения контрабандой в них.</p>
+<p>Вариантность позволяет <code>Box</code> и <code>Vec</code> ослаблять условия общей изменяемости.
+Поэтому вы можете передать <code>&amp;Box&lt;&amp;'static str&gt;</code> туда , где ожидается <code>&amp;Box&lt;&amp;'a str&gt;</code>.</p>
+<p>Если идет передача <em>по значению</em>, то все гораздо менее очевидно. Оказывается,
+да, вы можете выделять подтипы при передаче по значению. Вот как это работает:</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn get_box&lt;'a&gt;(str: &amp;'a str) -&gt; Box&lt;&amp;'a str&gt; {
+    // строковые литералы являются `&amp;'static str`
+    Box::new(&quot;hello&quot;)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Ослабление при передаче по значению нормально проходит, потому что нет никого,
+кто бы &quot;помнил&quot; старое время жизни в Box. Вариантность <code>&amp;mut</code> была проблемой,
+потому что всегда был настоящий владелец, который помнил оригинальный под-тип.</p>
+<p>Инвариантность типов ячеек можно объяснить так: <code>&amp;</code> похожа на <code>&amp;mut</code> для ячеек,
+потому что вы можете менять значение в них по средствам <code>&amp;</code>. Поэтому ячейки
+должны быть инвариантны, чтобы избежать незаконного ввоза времени жизни.</p>
+<p><code>Fn</code> - это самый тонкий случай, потому что у него смешанная вариантность. Чтобы
+понять почему <code>Fn(T) -&gt; U</code> должна быть инвариантна над T, создадим следующую 
+сигнатуру функции:</p>
+<pre><code class="language-rust ignore">// 'a получается из родительской области видимости
+fn foo(&amp;'a str) -&gt; usize;
+</code></pre>
+<p>Эта сигнатура утверждает, что может принять любую <code>&amp;str</code>, которая живет по крайней 
+мере <code>'a</code>. Теперь если бы эта сигнатура была вариантна над <code>&amp;'a str</code>, это означало 
+бы, что</p>
+<pre><code class="language-rust ignore">fn foo(&amp;'static str) -&gt; usize;
+</code></pre>
+<p>можно подставить в это место, так как она является под-типом. Но у этой функции
+требования строже: она утверждает, что может принимать только <code>&amp;'static str</code> и
+ничего кроме. Невозможно было бы дать ей <code>&amp;'a str</code>, потому что она свободно
+могла бы предположить, что ей дали то, что должно жить вечно. Поэтому функции
+инвариантны над своими аргументами.</p>
+<p>Чтобы понять, почему <code>Fn(T) -&gt; U</code> должна быть вариантна над U, создадим следующую 
+сигнатуру функции:</p>
+<pre><code class="language-rust ignore">// 'a получается из родительской области видимости
+fn foo(usize) -&gt; &amp;'a str;
+</code></pre>
+<p>Эта сигнатура утверждает, что вернет что-то, что будет жить дольше, чем <code>'a</code>.
+Поэтому абсолютно разумно подставить</p>
+<pre><code class="language-rust ignore">fn foo(usize) -&gt; &amp;'static str;
+</code></pre>
+<p>на ее место. Поэтому функции вариантны над своим возвращаемым типом.</p>
+<p>У <code>*const</code> такая же семантика как и у <code>&amp;</code>, а, следовательно, и вариантность. С
+другой стороны <code>*mut</code> можно разыменовать в <code>&amp;mut</code>, поэтому она инвариантна,
+также как типы ячеек.</p>
+<p>Все это хорошо для типов из стандартной библиотеки, но как вариантность
+вычисляется для типов, которые определили <em>вы</em>? Структуры, говоря неформально,
+наследуют вариантность своих полей. Если у структуры <code>Foo</code> есть обобщенный
+аргумент <code>A</code>, который используется в поле <code>a</code>, то вариантность Foo над <code>A</code> будет
+совпадать с вариантностью <code>a</code>. Это усложняется, если <code>A</code> используется в
+нескольких полях.</p>
+<ul>
+<li>Если все использования A вариантны, то Foo вариантна над A</li>
+<li>Иначе, Foo инвариантна над A</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::cell::Cell;
+
+struct Foo&lt;'a, 'b, A: 'a, B: 'b, C, D, E, F, G, H&gt; {
+    a: &amp;'a A,     // вариантна над 'a и A
+    b: &amp;'b mut B, // вариантна над 'b и инвариантна над B
+    c: *const C,  // вариантна над C
+    d: *mut D,    // инвариантна над D
+    e: Vec&lt;E&gt;,    // вариантна над E
+    f: Cell&lt;F&gt;,   // инвариантна над F
+    g: G,         // вариантна над G
+    h1: H,        // была бы вариантна над H если бы не...
+    h2: Cell&lt;H&gt;,  // была бы инвариантна над H, потому что инвариантность побеждает
+}
+<span class="boring">}
+</span></code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="hrtb.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="dropck.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="hrtb.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="dropck.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

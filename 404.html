@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    (function() {
+      const path = window.location.pathname;
+      const search = window.location.search;
+      const hash = window.location.hash;
+
+      // location /stable/book/(.*) -> /book/$1
+      if (path.startsWith('/stable/book/')) {
+        const tail = path.replace(/^\/stable\/book\//, '');
+        window.location.replace('/book/' + tail + search + hash);
+        return;
+      }
+
+      // location /rust-by-example -> /stable/rust-by-example
+      if (path.startsWith('/rust-by-example')) {
+        window.location.replace('/stable' + path + search + hash);
+        return;
+      }
+
+      // location /nomicon -> /stable/nomicon
+      if (path.startsWith('/nomicon')) {
+        window.location.replace('/stable' + path + search + hash);
+        return;
+      }
+
+      // location /std -> doc.rust-lang.org
+      if (path.startsWith('/std')) {
+        window.location.replace('https://doc.rust-lang.org' + path + search + hash);
+        return;
+      }
+
+      // location /reference -> doc.rust-lang.org/stable/reference
+      if (path.startsWith('/reference')) {
+        window.location.replace('https://doc.rust-lang.org/stable' + path + search + hash);
+        return;
+      }
+
+      // Если ничего не подошло — показываем обычную 404
+      document.getElementById('not-found').style.display = 'block';
+    })();
+  </script>
+</head>
+<body>
+  <div id="not-found" style="display:none;">
+    <h1>Страница не найдена (404)</h1>
+  </div>
+</body>
+</html>
+

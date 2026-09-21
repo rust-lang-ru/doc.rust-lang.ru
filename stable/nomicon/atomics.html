@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Атомарные операции - The Rustonomicon</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Темное искусство продвинутого и небезопасного программирования на Rust">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/nomicon.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Вступление</a></li><li class="chapter-item expanded "><a href="meet-safe-and-unsafe.html"><strong aria-hidden="true">1.</strong> Встреча безопасного и небезопасного</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="safe-unsafe-meaning.html"><strong aria-hidden="true">1.1.</strong> Как относятся Безопасный и Небезопасный Rust</a></li><li class="chapter-item expanded "><a href="what-unsafe-does.html"><strong aria-hidden="true">1.2.</strong> Что небезопасный код может делать</a></li><li class="chapter-item expanded "><a href="working-with-unsafe.html"><strong aria-hidden="true">1.3.</strong> Работа с небезопасным кодом</a></li></ol></li><li class="chapter-item expanded "><a href="data.html"><strong aria-hidden="true">2.</strong> Представление данных в Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="repr-rust.html"><strong aria-hidden="true">2.1.</strong> repr(Rust)</a></li><li class="chapter-item expanded "><a href="exotic-sizes.html"><strong aria-hidden="true">2.2.</strong> Типы экзотического размера</a></li><li class="chapter-item expanded "><a href="other-reprs.html"><strong aria-hidden="true">2.3.</strong> Альтернативные представления</a></li></ol></li><li class="chapter-item expanded "><a href="ownership.html"><strong aria-hidden="true">3.</strong> Владение и время жизни</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.1.</strong> Ссылки</a></li><li class="chapter-item expanded "><a href="aliasing.html"><strong aria-hidden="true">3.2.</strong> Алиасинг</a></li><li class="chapter-item expanded "><a href="lifetime.html"><strong aria-hidden="true">3.3.</strong> Время жизни</a></li><li class="chapter-item expanded "><a href="lifetime-mismatch.html"><strong aria-hidden="true">3.4.</strong> Границы времени жизни</a></li><li class="chapter-item expanded "><a href="lifetime-elision.html"><strong aria-hidden="true">3.5.</strong> Опускание времени жизни</a></li><li class="chapter-item expanded "><a href="unbounded-lifetimes.html"><strong aria-hidden="true">3.6.</strong> Безграничные времена жизни</a></li><li class="chapter-item expanded "><a href="hrtb.html"><strong aria-hidden="true">3.7.</strong> Ограничения типажей высшего порядка</a></li><li class="chapter-item expanded "><a href="subtyping.html"><strong aria-hidden="true">3.8.</strong> Подтипы и вариантность</a></li><li class="chapter-item expanded "><a href="dropck.html"><strong aria-hidden="true">3.9.</strong> Проверка сброса</a></li><li class="chapter-item expanded "><a href="phantom-data.html"><strong aria-hidden="true">3.10.</strong> Призрачные данные</a></li><li class="chapter-item expanded "><a href="borrow-splitting.html"><strong aria-hidden="true">3.11.</strong> Деление заимствований</a></li></ol></li><li class="chapter-item expanded "><a href="conversions.html"><strong aria-hidden="true">4.</strong> Преобразование типов</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="coercions.html"><strong aria-hidden="true">4.1.</strong> Неявные приведения типов</a></li><li class="chapter-item expanded "><a href="dot-operator.html"><strong aria-hidden="true">4.2.</strong> Оператор Точка</a></li><li class="chapter-item expanded "><a href="casts.html"><strong aria-hidden="true">4.3.</strong> Явные приведения типов</a></li><li class="chapter-item expanded "><a href="transmutes.html"><strong aria-hidden="true">4.4.</strong> Трансмутации</a></li></ol></li><li class="chapter-item expanded "><a href="uninitialized.html"><strong aria-hidden="true">5.</strong> Работа с неинициализированной памятью</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="checked-uninit.html"><strong aria-hidden="true">5.1.</strong> Проверяемая неинициализированная память</a></li><li class="chapter-item expanded "><a href="drop-flags.html"><strong aria-hidden="true">5.2.</strong> Флаги удаления</a></li><li class="chapter-item expanded "><a href="unchecked-uninit.html"><strong aria-hidden="true">5.3.</strong> Непроверяемая неинициализированная память</a></li></ol></li><li class="chapter-item expanded "><a href="obrm.html"><strong aria-hidden="true">6.</strong> Управление ресурсами на основе владения</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="constructors.html"><strong aria-hidden="true">6.1.</strong> Конструкторы</a></li><li class="chapter-item expanded "><a href="destructors.html"><strong aria-hidden="true">6.2.</strong> Деструкторы</a></li><li class="chapter-item expanded "><a href="leaking.html"><strong aria-hidden="true">6.3.</strong> Утечка</a></li></ol></li><li class="chapter-item expanded "><a href="unwinding.html"><strong aria-hidden="true">7.</strong> Размотка</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="exception-safety.html"><strong aria-hidden="true">7.1.</strong> Безопасность исключений</a></li><li class="chapter-item expanded "><a href="poisoning.html"><strong aria-hidden="true">7.2.</strong> Отравление</a></li></ol></li><li class="chapter-item expanded "><a href="concurrency.html"><strong aria-hidden="true">8.</strong> Многопоточность и параллелизм</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="races.html"><strong aria-hidden="true">8.1.</strong> Гонки данных и их условия</a></li><li class="chapter-item expanded "><a href="send-and-sync.html"><strong aria-hidden="true">8.2.</strong> Send и Sync</a></li><li class="chapter-item expanded "><a href="atomics.html" class="active"><strong aria-hidden="true">8.3.</strong> Атомарные операции</a></li></ol></li><li class="chapter-item expanded "><a href="vec/vec.html"><strong aria-hidden="true">9.</strong> Пример: Реализация Vec</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vec/vec-layout.html"><strong aria-hidden="true">9.1.</strong> Содержимое структуры</a></li><li class="chapter-item expanded "><a href="vec/vec-alloc.html"><strong aria-hidden="true">9.2.</strong> Выделение памяти</a></li><li class="chapter-item expanded "><a href="vec/vec-push-pop.html"><strong aria-hidden="true">9.3.</strong> Push и Pop</a></li><li class="chapter-item expanded "><a href="vec/vec-dealloc.html"><strong aria-hidden="true">9.4.</strong> Освобождение</a></li><li class="chapter-item expanded "><a href="vec/vec-deref.html"><strong aria-hidden="true">9.5.</strong> Разыменование</a></li><li class="chapter-item expanded "><a href="vec/vec-insert-remove.html"><strong aria-hidden="true">9.6.</strong> Insert и Remove</a></li><li class="chapter-item expanded "><a href="vec/vec-into-iter.html"><strong aria-hidden="true">9.7.</strong> IntoIter</a></li><li class="chapter-item expanded "><a href="vec/vec-raw.html"><strong aria-hidden="true">9.8.</strong> RawVec</a></li><li class="chapter-item expanded "><a href="vec/vec-drain.html"><strong aria-hidden="true">9.9.</strong> Drain</a></li><li class="chapter-item expanded "><a href="vec/vec-zsts.html"><strong aria-hidden="true">9.10.</strong> Обработка типов нулевого размера</a></li><li class="chapter-item expanded "><a href="vec/vec-final.html"><strong aria-hidden="true">9.11.</strong> Получившийся код</a></li></ol></li><li class="chapter-item expanded "><a href="arc-mutex/arc-and-mutex.html"><strong aria-hidden="true">10.</strong> Реализация Arc и Mutex</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="arc-mutex/arc.html"><strong aria-hidden="true">10.1.</strong> Arc</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="arc-mutex/arc-layout.html"><strong aria-hidden="true">10.1.1.</strong> Размещение в памяти</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-base.html"><strong aria-hidden="true">10.1.2.</strong> Базовый код</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-clone.html"><strong aria-hidden="true">10.1.3.</strong> Клонирование</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-drop.html"><strong aria-hidden="true">10.1.4.</strong> Удаление</a></li><li class="chapter-item expanded "><a href="arc-mutex/arc-final.html"><strong aria-hidden="true">10.1.5.</strong> Получившийся код</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="ffi.html"><strong aria-hidden="true">11.</strong> FFI</a></li><li class="chapter-item expanded "><a href="beneath-std.html"><strong aria-hidden="true">12.</strong> Внутри std</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="panic-handler.html"><strong aria-hidden="true">12.1.</strong> #[panic_handler]</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rustonomicon</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang-ru/nomicon" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>% Атомарные операции</p>
+<p>Rust нагло наследует модель памяти C11 для атомарных операций. Не потому что эта
+модель великолепна или легка для понимания. Даже наоборот, эта модель довольно
+сложна и имеет <a href="http://plv.mpi-sws.org/c11comp/popl15.pdf">несколько дефектов</a>. Просто мы принимаем во
+внимание, что все модели атомарных операций имеют недостатки. По крайней мере,
+мы можем извлечь выгоду из существующих инструментов и изученности Си.</p>
+<p>Попытаться полностью объяснить модель в этой книге довольно безнадежно. Она
+описывается в терминах графов безумных зависимостей, для объяснения которых
+понадобится отдельная книга. Если хотите изучить все эти штучки-дрючки, смотрите
+в <a href="http://www.open-std.org/jtc1/sc22/wg14/www/standards.html#9899">спецификацию Си (Секция 7.17)</a>. Итак, мы попытаемся объяснить
+основы и некоторые проблемы, с которыми столкнулись разработчики Rust.</p>
+<p>Модель памяти C11 нацелена на преодоление разрыва между той семантикой, которую
+мы хотим, теми оптимизациями, которые хочет компилятор, и тому хаосу из
+противоречий, который хочет наше железо. <em>Нам</em> же просто хочется писать
+программы и чтобы они делали то, что мы написали, да побыстрее. Разве это так
+много?</p>
+<h1 id="Изменение-порядка-компилятором"><a class="header" href="#Изменение-порядка-компилятором">Изменение порядка компилятором</a></h1>
+<p>Компилятор нацелен на то, чтобы иметь возможность делать разные виды сумасшедших
+преобразований для уменьшения зависимости между данными и удаления мертвого
+кода. В частности, он может полностью поменять текущий порядок событий или даже
+сделать так, что некоторые события никогда не произойдут! Если мы напишем,
+что-нибудь такое</p>
+<pre><code class="language-rust ignore">x = 1;
+y = 3;
+x = 2;
+</code></pre>
+<p>Компилятор может решить, что лучше бы ваша программа делала так</p>
+<pre><code class="language-rust ignore">x = 2;
+y = 3;
+</code></pre>
+<p>Порядок событий поменялся, и одно из них просто удалилось. С точки зрения одного
+потока, это не играет роли: после выполнения все окажется в том же состоянии. Но
+если наша программа многопоточна, мы рассчитываем, что <code>x</code> присвоится 1 до
+присвоения <code>y</code>. Мы бы хотели, чтобы компилятор мог выполнять оптимизации для
+ускорения производительности. С другой стороны мы бы также хотели, чтобы наша
+программа <em>делала то, что мы написали</em>.</p>
+<h1 id="Изменение-порядка-железом"><a class="header" href="#Изменение-порядка-железом">Изменение порядка железом</a></h1>
+<p>С другой стороны даже если компилятор полностью понял, что мы хотим и
+уважительно отнесся к нашим желаниям, железо может доставить нам неприятности.
+Проблемы придут от ЦП из-за иерархий памяти. Есть единственное глобальное общее
+пространство памяти где-то в вашей аппаратной части, но с точки зрения каждого
+ядра ЦП оно <em>так далеко</em> и <em>так медленно</em>. Каждый ЦП лучше будет работать со
+своим локальным кэшем данных и будет преодолевать все страдания обмена с общей
+памятью, только если этих данных в кэше нет.</p>
+<p>В конце концов это ведь и есть задача кэша, так? Если бы каждое чтение из кэша
+сопровождалось чтением из общей памяти для двойной проверки, что данные не
+изменились, какой был бы в нем смысл? В результате получаем, что железо не
+гарантирует, что порядок событий в <em>одном</em> потоке, совпадает с порядком в
+<em>другом</em>. Чтобы гарантировать его, мы должны использовать специальные инструкции
+CPU, указывая ему быть чуть менее умным.</p>
+<p>Например, заставим компилятор имитировать следующую логику:</p>
+<pre><code class="language-text">initial state: x = 0, y = 1
+
+THREAD 1        THREAD2
+y = 3;          if x == 1 {
+x = 1;              y *= 2;
+                }
+</code></pre>
+<p>В идеале, у этой программы 2 вероятных конечных состояния:</p>
+<ul>
+<li><code>y = 3</code>: (поток 2 выполнил проверки перед тем, как завершился поток 1)</li>
+<li><code>y = 6</code>: (поток 2 выполнил проверки после того, как завершился поток 1)</li>
+</ul>
+<p>Однако потенциально у этой программы есть третье состояние, возможное благодаря
+железу:</p>
+<ul>
+<li><code>y = 2</code>: (поток 2 видит <code>x = 1</code>, но не <code>y = 3</code>, и затем переписывает <code>y = 3</code>)</li>
+</ul>
+<p>Стоит отметить, что разные типы CPU предоставляют разные гарантии. Обычно
+разделяют железо на две категории: со строгим и нестрогим порядком выполнения.
+Надо заметить, что x86/64 гарантируют строгий порядок, а ARM, наоборот,
+нестрогий. Из этого можно сделать два вывода для параллельного программирования:</p>
+<ul>
+<li>
+<p>Запрос гарантий строгого порядка у железа со строгим порядком может стоить 
+очень дешево, или даже не стоить ничего, потому что они и так предоставляют 
+такие гарантии безусловно. Гарантии нестрого порядка могут дать выигрыш в 
+производительности только на железе с нестрогим порядком выполнения.</p>
+</li>
+<li>
+<p>Запрос гарантий, которые слишком слабы, на железе со строгим порядком <em>скорее
+всего</em> сработает, даже если ваша программа не является строго правильной. Если это
+возможно, параллельные алгоритмы лучше всего проверять на железе с нестрогим
+порядком.</p>
+</li>
+</ul>
+<h1 id="Обращения-к-данным"><a class="header" href="#Обращения-к-данным">Обращения к данным</a></h1>
+<p>Модель памяти C11 пытается уменьшить разрыв между миром программ и железа, 
+позволяя говорить нам о <em>причинно-следственной связи</em> нашей программы. Как 
+правило, между частями программы и потоками, исполняющими их, 
+устанавливаются отношения <em>&quot;выполняется прежде&quot;</em>. Это дает железу и компилятору 
+место для более агрессивной оптимизации программы, когда строгие отношения 
+<em>&quot;выполняется прежде&quot;</em> еще не установлены, но заставляет их быть очень аккуратными, 
+когда они уже установлены. Мы устанавливаем эти отношения путём <em>обращения к 
+данным</em> и <em>атомарных доступов</em>.</p>
+<p>Обращения к данным - это хлеб насущный в мире программирования. Они
+принципиально не синхронизированы, и компиляторы могут агрессивно оптимизировать
+их. В частности, компилятор может спокойно поменять порядок обращения к данным,
+если программа однопоточна. Железо также может спокойно вносить изменения в
+обращения к данным из других потоков ленивым и непоследовательным образом, когда
+захочет. Важно, что доступ к данным - это способ осуществить гонку данных.
+Обращения к данным очень дружелюбны к железу и компилятору, но, как мы видим,
+предлагают <em>ужасную</em> семантику для написания синхронизированного кода. На самом
+деле, они слишком нестроги.</p>
+<p><strong>Написать правильно синхронизированный код, используя только обращения к данным, 
+буквально невозможно.</strong></p>
+<p>Атомарные доступы нужны, чтобы сказать железу и компилятору, что наша программа
+многопоточна. Каждый атомарный доступ может быть помечен <em>порядком</em>, указывающим
+тип отношения, устанавливаемого с другим обращением. На практике, это выражается
+в объяснении железу и компилятору тех вещей, которые они <em>не понимают</em>. Для
+компилятора все в большинстве своем вращается вокруг переупорядочивания
+инструкций. Для железа все в большинстве своем вращается вокруг того, как запись
+передается другому потоку. Rust предоставляет несколько порядков обращения:</p>
+<ul>
+<li>Последовательный порядок (SeqCst)</li>
+<li>Освобождение (Release)</li>
+<li>Получение (Acquire)</li>
+<li>Расслабленный порядок (Relaxed)</li>
+</ul>
+<p>(Заметьте: Мы явно не выделяем <em>потребляющий</em> порядок C11)</p>
+<p>TODO: плюсы и минусы? TODO: &quot;не забыть синхронизацию&quot;</p>
+<h1 id="Последовательный-порядок"><a class="header" href="#Последовательный-порядок">Последовательный порядок</a></h1>
+<p>Последовательный порядок является самым мощным из всех, включающим в себя все
+ограничения других порядков. Интуитивно понятно, что последовательные операции
+не могут быть переупорядочены: все обращения в одном потоке, происходящие до и
+после доступа SeqCst, остаются до и после него. Программа без гонок данных,
+использующая только последовательный порядок атомарных обращений и обращений к
+данным, обладает замечательным свойством, есть только одно единственное
+выполнение программных инструкций, по которому согласуются все потоки. Это
+выполнение также можно легко объяснить: это просто чередование выполнений всех
+потоков. Это не работает, если вы используете нестрогий порядок атомарных
+операций.</p>
+<p>Относительная дружелюбность разработчику не достается бесплатно. Даже на
+платформах со строгим порядком выполнения последовательный порядок обращений
+выстраивает барьеры в памяти.</p>
+<p>На практике, последовательный порядок редко необходим для правильности программ.
+Однако он будет точно правильным выбором, если вы не осведомлены о других
+порядках обращения к памяти. Чуть более медленная программа - это гораздо лучше,
+чем неправильная программа! Также в будущем легко будет перейти к более слабым
+ограничениям атомарных операций. Просто измените <code>SeqCst</code> на <code>Relaxed</code> и все!
+Конечно, это еще большой вопрос, будет ли это изменение правильно работать.</p>
+<h1 id="Получение-Освобождение"><a class="header" href="#Получение-Освобождение">Получение-Освобождение</a></h1>
+<p>Получение и Освобождение в основном работают в паре. Их имена объясняют их
+использование: они отлично подходят для получения и освобождения блокировки,
+гарантируя что критические секции не пересекутся.</p>
+<p>Интуитивно понятно, что обращение после получения блокировки остается после
+него. Но операции, происходящие до получения блокировки, могут спокойно быть
+переупорядочены и могут произойти после него. Аналогично, освобождение
+блокировки гарантирует, что каждое обращение до него останется до него. Но
+операции, происходящие после освобождения блокировки, могут спокойно быть
+переупорядочены и произойти до него.</p>
+<p>Когда поток A освобождает место в памяти, и после этого поток B последовательно
+получает <em>то же</em> место в памяти, устанавливается причинно-следственная связь.
+Каждая запись, происходящая до освобождения блокировки A, будет замечена B после
+освобождения блокировки. Однако никакая другая причинно-следственная связь не
+устанавливается с другими потоками. Аналогично, она не устанавливается между A
+и B, если они обращаются к <em>разным</em> местам в памяти.</p>
+<p>Базовое использование получения-освобождения, поэтому, простое: вы получаете
+блокировку места в памяти в начале критической секции, и освобождаете его блокировку
+в конце. Например, простая блокировка может быть такой:</p>
+<pre><pre class="playground"><code class="language-rust edition2018">use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::thread;
+
+fn main() {
+    let lock = Arc::new(AtomicBool::new(false)); // значение отвечает на вопрос &quot;Я занят?&quot;
+
+    // ... распределяем блокировку по потокам каким-то образом ...
+
+    // Пытаемся получить блокировку, устанавливая ее в true
+    while lock.compare_and_swap(false, true, Ordering::Acquire) { }
+    // выход из цикла говорит, что мы успешно получили блокировку!
+
+    // ... ужасные обращения к данным ...
+
+    // Ок, закончили, освобождаем блокировку
+    lock.store(false, Ordering::Release);
+}
+</code></pre></pre>
+<p>На платформах со строгим порядком выполнения большинство обращений к данным
+обладают семантикой получения-освобождения, делая ее абсолютно бесплатной. Но
+это не относится к платформам с нестрогим порядком.</p>
+<h1 id="Расслабленный-порядок"><a class="header" href="#Расслабленный-порядок">Расслабленный порядок</a></h1>
+<p>Расслабленные обращения являются самыми слабыми. Их можно спокойно
+переупорядочивать, не устанавливая ранние связи. Хотя, расслабленные операции
+все еще атомарны. Это означает, они не считают, что обращение к данным и любые
+операции чтения-изменения-записи, выполняемые с ними, происходят атомарно.
+Расслабленные операции подходят для вещей, которые вы хотите чтобы точно
+произошли, но о которых вы не особо заботитесь. Например, увеличение счетчика
+может быть безопасно выполнено несколькими потоками расслабленным <code>fetch_add</code>,
+если вы не используете этот счетчик для синхронизаций других обращений.</p>
+<p>Редко можно получить выгоду, выполняя расслабленные операции на платформах со
+строгим порядком выполнения, из-за того, что обращения к данным в них обладают
+семантикой получения-освобождения. Однако расслабленные операции могут быть
+дешевы на платформах с нестрогим порядком выполнения.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="send-and-sync.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="vec/vec.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="send-and-sync.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="vec/vec.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

@@ -1,14 +1,172 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <title>Redirecting...</title>
-  <link rel="canonical" href="https://rust-lang.ru/">
-  <meta http-equiv="refresh" content="0; url=https://rust-lang.ru/">
-  <script>location.replace("https://rust-lang.ru/");</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Документация Rust</title>
+
+    <link rel="stylesheet" href="https://doc.rust-lang.org/stable/rust.css">
+
 </head>
-<body>
-  Если перенаправление не произошло автоматически, перейдите по <a href="https://rust-lang.ru/">ссылке</a>.
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        Этот старый браузер не поддерживается и, скорее всего, отобразит страницу некорректно.
+    </div>
+    <![endif]-->
+
+
+    <h1 class="title">Документация Rust</h1>
+    <style>
+nav {
+    display: none;
+}
+h3 {
+    font-size: 1.35rem;
+}
+h4 {
+    font-size: 1.1rem;
+}
+
+/* Formatting for docs search bar */
+#search-input {
+    width: calc(100% - 58px);
+}
+#search-but {
+    cursor: pointer;
+}
+#search-but, #search-input {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    font-size: 0.7em;
+    background-color: #fff;
+}
+#search-but:hover, #search-input:focus {
+    border-color: #55a9ff;
+}
+
+/* Formatting for external link icon */
+svg.external-link {
+  display: inline-block;
+  position: relative;
+  vertical-align: suber;
+  width: 0.7rem;
+  height: 0.7rem;
+  padding-left: 2px;
+  top: 3px;
+}
+</style>
+<p>Добро пожаловать в обзор документации, предоставляемой <a href="https://www.rust-lang.org">проектом Rust</a>. Эта страница содержит ссылки на различные полезные справочные материалы, большинство из которых доступны офлайн (при открытии с помощью команды <code>rustup doc</code>). Многие из этих ресурсов представлены в формате «книг»; все вместе мы называем их «Книжной полкой Rust» (The Rust Bookshelf). Некоторые из них большие, некоторые — компактные.</p>
+<p>Все эти книги поддерживаются организацией Rust, однако здесь также представлены и некоторые неофициальные ресурсы документации!</p>
+<p>Если вам нужен только справочник по стандартной библиотеке, он доступен здесь:
+<a href="std/index.html">Документация по Rust API</a></p>
+<h2 id="learning-rust"><a class="doc-anchor" href="#learning-rust">§</a>Изучение Rust</h2>
+<p>Если вы хотите изучить Rust, этот раздел для вас! Все эти материалы предполагают, что у вас уже есть опыт программирования, но не привязаны к какому-либо конкретному языку:</p>
+<h3 id="the-rust-programming-language"><a class="doc-anchor" href="#the-rust-programming-language">§</a>Язык программирования Rust</h3>
+<p>Издание, любовно прозванное «Книгой» (The Book), — <a href="book/index.html">Язык программирования Rust</a> <sub><a href="https://doc.rust-lang.org/stable/book/">(ориг.)</a></sub> — познакомит вас с языком с самых базовых принципов. В процессе вы реализуете несколько проектов и к концу книги получите твердое понимание того, как использовать язык.</p>
+<h3 id="rust-by-example"><a class="doc-anchor" href="#rust-by-example">§</a>Rust на примерах (Rust By Example)</h3>
+<p>Если чтение сотен страниц о языке — не ваш стиль, то <a href="rust-by-example/index.html">Rust By Example</a> <sub><a href="https://doc.rust-lang.org/stable/rust-by-example/">(ориг.)</a></sub> отлично вам подойдет. В RBE представлено множество практических примеров кода без лишнего текста, а также включены упражнения!</p>
+<h3 id="rustlings"><a class="doc-anchor" href="#rustlings">§</a>Rustlings</h3>
+<p><a href="https://github.com/rust-lang/rustlings">Rustlings</a> проведет вас через загрузку и настройку тулчейна Rust, а затем предоставит интерактивный инструмент для решения практических задач по программированию на Rust.</p>
+<h3 id="rust-playground"><a class="doc-anchor" href="#rust-playground">§</a>Rust Playground</h3>
+<p><a href="https://play.rust-lang.org">Rust Playground</a> — удобная онлайн-среда для запуска небольших фрагментов кода, обмена ими и экспериментов с наиболее популярными крейтами.</p>
+<h2 id="using-rust"><a class="doc-anchor" href="#using-rust">§</a>Использование Rust</h2>
+<p>После того как вы освоитесь с языком, эти ресурсы помогут вам применить его на практике.</p>
+<h3 id="the-standard-library"><a class="doc-anchor" href="#the-standard-library">§</a>Стандартная библиотека</h3>
+<p>Стандартная библиотека Rust сопровождается <a href="std/index.html">обширной документацией по API</a> с пояснениями о том, как использовать различные компоненты языка, а также примерами кода для решения типовых задач. При наведении на примеры кода появляется кнопка «Run», открывающая код в Playground.</p>
+<div>
+  <form action="https://doc.rust-lang.ru/std/index.html" method="get">
+    <input id="search-input" type="search" name="search"
+           placeholder="Поиск по стандартной библиотеке"/>
+    <button id="search-but">Найти</button>
+  </form>
+</div>
+<h3 id="your-personal-documentation"><a class="doc-anchor" href="#your-personal-documentation">§</a>Ваша личная документация</h3>
+<p>При работе внутри крейта команда <code>cargo doc --open</code> сформирует документацию для вашего проекта <em>и</em> всех его зависимостей в их актуальных версиях, после чего откроет её в браузере. Добавьте флаг <code>--document-private-items</code>, чтобы также отобразить элементы, не помеченные как <code>pub</code>.</p>
+<h3 id="rust-version-history"><a class="doc-anchor" href="#rust-version-history">§</a>История версий Rust</h3>
+<p><a href="releases.html">Примечания к выпускам (Release Notes)</a> содержат историю изменений инструментария и языка Rust.</p>
+<p><a href="edition-guide/index.html">Руководство по редакциям (Edition Guide)</a> описывает редакции Rust и различия между ними. Последняя версия инструментария поддерживает все существовавшие редакции.</p>
+<h3 id="the-rustc-book"><a class="doc-anchor" href="#the-rustc-book">§</a>Книга по <code>rustc</code></h3>
+<p><a href="rustc/index.html">Книга по <code>rustc</code></a> описывает компилятор Rust — <code>rustc</code>.</p>
+<h3 id="the-cargo-book"><a class="doc-anchor" href="#the-cargo-book">§</a>Книга по Cargo</h3>
+<p><a href="cargo/index.html">Книга по Cargo</a> — руководство по системе сборки и менеджеру зависимостей Cargo.</p>
+<h3 id="the-rustdoc-book"><a class="doc-anchor" href="#the-rustdoc-book">§</a>Книга по Rustdoc</h3>
+<p><a href="rustdoc/index.html">Книга по Rustdoc</a> посвящена встроенному генератору документации — <code>rustdoc</code>.</p>
+<h3 id="the-clippy-book"><a class="doc-anchor" href="#the-clippy-book">§</a>Книга по Clippy</h3>
+<p><a href="clippy/index.html">Книга по Clippy</a> описывает статический анализатор кода — Clippy.</p>
+<h3 id="extended-error-listing"><a class="doc-anchor" href="#extended-error-listing">§</a>Расширенный список ошибок</h3>
+<p>Многие ошибки компилятора Rust снабжены собственными кодами, и вы можете запросить развернутую диагностику непосредственно в терминале (командой <code>rustc --explain</code>). Кроме того, они доступны онлайн: <a href="error_codes/index.html">коды ошибок rustc</a>.</p>
+<h2 id="mastering-rust"><a class="doc-anchor" href="#mastering-rust">§</a>Углубленное изучение Rust</h2>
+<p>Когда вы будете уверенно владеть языком, вам могут пригодиться следующие материалы продвинутого уровня.</p>
+<h3 id="the-reference"><a class="doc-anchor" href="#the-reference">§</a>Справочник (The Reference)</h3>
+<p><a href="reference/index.html">Справочник (The Reference)</a> <sub><a href="https://doc.rust-lang.org/stable/reference/">(ориг.)</a></sub> не является формальной спецификацией языка, однако дает существенно более глубокое и подробное описание, чем стандартная книга.</p>
+<h3 id="the-style-guide"><a class="doc-anchor" href="#the-style-guide">§</a>Руководство по стилю (Style Guide)</h3>
+<p><a href="style-guide/index.html">Руководство по стилю Rust</a> регламентирует стандарты оформления кода на Rust. Большинство разработчиков используют утилиту <code>cargo fmt</code> (вызывающую <code>rustfmt</code>) для автоматического приведения кода к этому стилю.</p>
+<h3 id="the-rustonomicon"><a class="doc-anchor" href="#the-rustonomicon">§</a>Растономикон (The Rustonomicon)</h3>
+<p><a href="nomicon/index.html">Растономикон</a> <sub><a href="https://doc.rust-lang.org/stable/nomicon/">(ориг.)</a></sub> — подробное руководство по тонкостям и темным сторонам небезопасного (unsafe) Rust. Его также часто называют просто «’номикон».</p>
+<h3 id="the-unstable-book"><a class="doc-anchor" href="#the-unstable-book">§</a>Книга нестабильных возможностей (The Unstable Book)</h3>
+<p><a href="unstable-book/index.html">The Unstable Book</a> документирует нестабильные и экспериментальные функции языка и компилятора.</p>
+<h3 id="the-rustc-development-guide"><a class="doc-anchor" href="#the-rustc-development-guide">§</a>Руководство по разработке <code>rustc</code></h3>
+<p><a href="https://rustc-dev-guide.rust-lang.org/">The <code>rustc-dev-guide</code></a> объясняет архитектуру компилятора и порядок участия в его развитии. Материал полезен для тех, кто планирует собирать или модифицировать компилятор Rust из исходников (например, под нестандартные платформы).</p>
+<h2 id="specialized-rust"><a class="doc-anchor" href="#specialized-rust">§</a>Специализированный Rust</h2>
+<p>При использовании Rust в предметных областях обратите внимание на руководства, подготовленные специализированными командами.</p>
+<h3 id="embedded-systems"><a class="doc-anchor" href="#embedded-systems">§</a>Встраиваемые системы</h3>
+<p>При разработке под bare-metal (без ОС) или встроенный Linux будут полезны материалы, развиваемые <a href="https://github.com/rust-embedded">Рабочей группой по встроенным системам (Embedded Working Group)</a>.</p>
+<h4 id="the-embedded-rust-book"><a class="doc-anchor" href="#the-embedded-rust-book">§</a>Книга по Embedded Rust</h4>
+<p><a href="embedded-book/index.html">The Embedded Rust Book</a> ориентирована на разработчиков, которые уже знакомы с встраиваемыми системами и языком Rust, но еще не применяли Rust непосредственно в микроконтроллерах и встроенных устройствах.</p>
+<script>
+// check if a given link is external
+function isExternalLink(url) {
+  const tmp = document.createElement('a');
+  tmp.href = url;
+  return tmp.host !== window.location.host;
+}
+
+// Add the `external` class to all <a> tags with external links and append the external link SVG
+function updateExternalAnchors() {
+  /*
+    External link SVG from Font-Awesome
+    CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0
+    via Wikimedia Commons
+  */
+  const svgText = `<svg
+     class='external-link'
+     xmlns='http://www.w3.org/2000/svg'
+     viewBox='0 -256 1850 1850'
+     width='100%'
+     height='100%'>
+       <g transform='matrix(1,0,0,-1,30,1427)'>
+         <path d='M 1408,608 V 288 Q 1408,169 1323.5,84.5 1239,0 1120,
+           0 H 288 Q 169,0 84.5,84.5 0,169 0,288 v 832 Q 0,1239 84.5,1323.5 169,
+           1408 288,1408 h 704 q 14,0 23,-9 9,-9 9,-23 v -64 q 0,-14 -9,-23 -9,
+           -9 -23,-9 H 288 q -66,0 -113,-47 -47,-47 -47,-113 V 288 q 0,-66 47,
+           -113 47,-47 113,-47 h 832 q 66,0 113,47 47,47 47,113 v 320 q 0,14 9,
+           23 9,9 23,9 h 64 q 14,0 23,-9 9,-9 9,-23 z m 384,864 V 960 q 0,
+           -26 -19,-45 -19,-19 -45,-19 -26,0 -45,19 L 1507,1091 855,439 q -10,
+           -10 -23,-10 -13,0 -23,10 L 695,553 q -10,10 -10,23 0,13 10,23 l 652,
+           652 -176,176 q -19,19 -19,45 0,26 19,45 19,19 45,19 h 512 q 26,0 45,
+           -19 19,-19 19,-45 z' style='fill:currentColor' />
+         </g>
+     </svg>`;
+  let allAnchors = document.getElementsByTagName("a");
+
+  for (var i = 0; i < allAnchors.length; ++i) {
+    let anchor = allAnchors[i];
+    if (isExternalLink(anchor.href)) {
+      anchor.classList.add("external");
+      anchor.innerHTML += svgText;
+    }
+  }
+}
+
+// on page load, update external anchors
+document.addEventListener("DOMContentLoaded", updateExternalAnchors);
+
+</script>
+
+
 </body>
 </html>
-
